@@ -1,0 +1,39 @@
+name: Deploy Mainsite
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mainsite-production
+  cancel-in-progress: false
+jobs:
+  verify:
+    uses: ./.github/workflows/check.yml
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git archive --format=tar.gz HEAD > mainsite-source.tar.gz
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: mainsite-source.tar.gz
+          target: /var/www/releases/mainsite-${{ github.sha }}
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          command_timeout: 20m
+          script: |
+            set -eu
+            cd /var/www/releases/mainsite-${{ github.sha }}
+            tar -xzf mainsite-source.tar.gz
+            pnpm install --frozen-lockfile
+            NEXT_TELEMETRY_DISABLED=1 NEXT_PUBLIC_CORECROW_URL=https://api.blackpolar.org pnpm build
+            bash scripts/deploy-vps.sh

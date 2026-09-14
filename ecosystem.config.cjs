@@ -2,9 +2,8 @@ module.exports = {
   apps: [
     {
       name: "blackpolar-web",
-      script: "node_modules/.bin/next",
-      args: "start -p 3000",
-      env: { NODE_ENV: "production" },
+      script: ".next/standalone/server.js",
+      env: { NODE_ENV: "production", HOSTNAME: "127.0.0.1", PORT: "3000" },
     },
   ],
 };

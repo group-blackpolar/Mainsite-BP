@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -11,17 +12,17 @@ export default function NotFound() {
         minHeight: "100vh",
         textAlign: "center",
         padding: "40px",
-        background: "#080808",
-        color: "#f5f5f0",
+        background: "#ffffff",
+        color: "#0f1115",
       }}
     >
       <p
         style={{
-          fontFamily: "'Space Mono', monospace",
+          fontFamily: "'Manrope', sans-serif",
           fontSize: "0.6rem",
           letterSpacing: "0.3em",
           textTransform: "uppercase",
-          color: "rgba(245,245,240,0.3)",
+          color: "rgba(15,17,21,0.45)",
           marginBottom: "16px",
         }}
       >
@@ -44,7 +45,7 @@ export default function NotFound() {
           fontFamily: "'DM Sans', sans-serif",
           fontWeight: 300,
           fontSize: "0.95rem",
-          color: "rgba(245,245,240,0.45)",
+          color: "rgba(15,17,21,0.58)",
           maxWidth: "420px",
           marginBottom: "40px",
         }}
@@ -52,21 +53,21 @@ export default function NotFound() {
         La página que buscas no existe.
       </p>
 
-      <a
+      <Link
         href="/"
         style={{
-          fontFamily: "'Space Mono', monospace",
+          fontFamily: "'Manrope', sans-serif",
           fontSize: "0.65rem",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
-          color: "#080808",
-          background: "#f5f5f0",
+          color: "#ffffff",
+          background: "#0f1115",
           padding: "14px 32px",
           textDecoration: "none",
         }}
       >
-        ← Back to Home
-      </a>
+        ← Volver al inicio
+      </Link>
     </div>
   );
 }
