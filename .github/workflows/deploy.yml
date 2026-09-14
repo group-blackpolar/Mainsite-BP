@@ -1,7 +1,7 @@
 name: Deploy Mainsite
 on:
   push:
-    branches: [main]
+    branches: [production]
   workflow_dispatch:
 permissions:
   contents: read
