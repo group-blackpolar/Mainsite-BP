@@ -24,7 +24,10 @@ if sudo -n test -f /etc/blackpolar/mainsite.config.cjs; then
   had_previous=true
   sudo -n cp /etc/blackpolar/mainsite.config.cjs "$release/previous.config.cjs"
 fi
-sudo -n pm2 startOrReload "$release/mainsite.config.cjs" --update-env
+if sudo -n pm2 describe blackpolar-mainsite >/dev/null 2>&1; then
+  sudo -n pm2 delete blackpolar-mainsite
+fi
+sudo -n pm2 start "$release/mainsite.config.cjs" --update-env
 for attempt in {1..20}; do
   if curl --fail --silent --max-time 3 http://127.0.0.1:3100/en-us >/dev/null; then
     sudo -n cp "$release/mainsite.config.cjs" /etc/blackpolar/mainsite.config.cjs
@@ -34,6 +37,9 @@ for attempt in {1..20}; do
   fi
   sleep 2
 done
-if "$had_previous"; then sudo -n pm2 startOrReload "$release/previous.config.cjs" --update-env; fi
+if "$had_previous"; then
+  sudo -n pm2 delete blackpolar-mainsite >/dev/null 2>&1 || true
+  sudo -n pm2 start "$release/previous.config.cjs" --update-env
+fi
 echo 'Release failed; previous site restored where available'
 exit 1

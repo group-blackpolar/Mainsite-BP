@@ -1,8 +1,5 @@
 name: Deploy Mainsite
-on:
-  push:
-    branches: [production]
-  workflow_dispatch:
+on: workflow_dispatch
 permissions:
   contents: read
 concurrency:
