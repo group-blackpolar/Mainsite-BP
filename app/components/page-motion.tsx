@@ -23,7 +23,8 @@ export function PageMotion() {
       if (Number.isFinite(savedPosition) && savedPosition > 0) {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            const previousBehavior = document.documentElement.style.scrollBehavior;
+            const previousBehavior =
+              document.documentElement.style.scrollBehavior;
             document.documentElement.style.scrollBehavior = "auto";
             window.scrollTo(0, savedPosition);
             requestAnimationFrame(() => {
@@ -39,6 +40,23 @@ export function PageMotion() {
   }, [pathname]);
 
   useEffect(() => {
+    const targetSection = sessionStorage.getItem("blackpolar:target-section");
+    if (targetSection) {
+      sessionStorage.removeItem("blackpolar:target-section");
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document
+            .getElementById(targetSection)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(
+            history.state,
+            "",
+            `${window.location.pathname}${window.location.search}`,
+          );
+        });
+      });
+    }
+
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
 
     if (!("IntersectionObserver" in window)) {

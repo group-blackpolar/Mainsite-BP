@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { SiteLocale } from "./marketing-home";
 import { ThemeToggle } from "./theme-toggle";
+import { SectionLink } from "./section-link";
 
 type MenuId = "products" | "solutions";
 
@@ -15,7 +16,6 @@ const shellCopy = {
       products: "Productos",
       solutions: "Soluciones",
       technology: "Tecnologías",
-      enterprise: "Empresa",
     },
     login: "Iniciar sesión",
     contact: "Contacto",
@@ -42,7 +42,6 @@ const shellCopy = {
     footer: {
       products: "Productos",
       solutions: "Soluciones",
-      resources: "Recursos",
       legal: "Legal",
     },
   },
@@ -51,7 +50,6 @@ const shellCopy = {
       products: "Products",
       solutions: "Solutions",
       technology: "Technology",
-      enterprise: "Company",
     },
     login: "Log in",
     contact: "Contact",
@@ -78,7 +76,6 @@ const shellCopy = {
     footer: {
       products: "Products",
       solutions: "Solutions",
-      resources: "Resources",
       legal: "Legal",
     },
   },
@@ -163,24 +160,37 @@ export function SiteHeader({ locale }: { locale: SiteLocale }) {
           </div>
         )}
         <div className="bp-menu-items">
-          {items.map(([title, body], index) => (
-            <Link
-              href={
-                menu === "products"
-                  ? `/${locale}/${["north", "arcticfox", "ermine"][index]}`
-                  : `/${locale}/#solutions`
-              }
-              className="bp-menu-link"
-              key={title}
-              onClick={closeMenus}
-            >
-              <span>
-                <strong>{title}</strong>
-                <small>{body}</small>
-              </span>
-              <Arrow />
-            </Link>
-          ))}
+          {items.map(([title, body], index) => {
+            const content = (
+              <>
+                <span>
+                  <strong>{title}</strong>
+                  <small>{body}</small>
+                </span>
+                <Arrow />
+              </>
+            );
+            return menu === "products" ? (
+              <Link
+                href={`/${locale}/${["north", "arcticfox", "ermine"][index]}`}
+                className="bp-menu-link"
+                key={title}
+                onClick={closeMenus}
+              >
+                {content}
+              </Link>
+            ) : (
+              <SectionLink
+                locale={locale}
+                section="solutions"
+                className="bp-menu-link"
+                key={title}
+                onActivate={closeMenus}
+              >
+                {content}
+              </SectionLink>
+            );
+          })}
         </div>
       </div>
     );
@@ -192,14 +202,19 @@ export function SiteHeader({ locale }: { locale: SiteLocale }) {
       className={`bp-header ${scrolled ? "is-condensed" : ""}`}
     >
       <div className="bp-nav-frame">
-        <Link
-          className="bp-brand"
-          href={`/${locale}`}
-          aria-label={t.home}
-        >
+        <Link className="bp-brand" href={`/${locale}`} aria-label={t.home}>
           <span className="bp-brand-mark">
             <Image
-              src="/assets/main/image/blackpolar1.png"
+              className="bp-brand-logo bp-brand-logo-light"
+              src="/assets/brand/logo-black.png"
+              alt=""
+              width={46}
+              height={46}
+              priority
+            />
+            <Image
+              className="bp-brand-logo bp-brand-logo-dark"
+              src="/assets/brand/logo-white.png"
               alt=""
               width={46}
               height={46}
@@ -234,8 +249,9 @@ export function SiteHeader({ locale }: { locale: SiteLocale }) {
               </div>
             );
           })}
-          <Link href={`/${locale}/#technology-stack`}>{t.nav.technology}</Link>
-          <Link href={`/${locale}/#enterprise`}>{t.nav.enterprise}</Link>
+          <SectionLink locale={locale} section="technology-stack">
+            {t.nav.technology}
+          </SectionLink>
         </nav>
 
         <div className="bp-nav-actions">
@@ -281,30 +297,27 @@ export function SiteHeader({ locale }: { locale: SiteLocale }) {
               {t.productMenu[i]?.[0]}
             </Link>
           ))}
-          <Link
-            href={`/${locale}/#products`}
-            onClick={() => setMobileOpen(false)}
+          <SectionLink
+            locale={locale}
+            section="products"
+            onActivate={() => setMobileOpen(false)}
           >
             {t.nav.products}
-          </Link>
-          <Link
-            href={`/${locale}/#solutions`}
-            onClick={() => setMobileOpen(false)}
+          </SectionLink>
+          <SectionLink
+            locale={locale}
+            section="solutions"
+            onActivate={() => setMobileOpen(false)}
           >
             {t.nav.solutions}
-          </Link>
-          <Link
-            href={`/${locale}/#technology-stack`}
-            onClick={() => setMobileOpen(false)}
+          </SectionLink>
+          <SectionLink
+            locale={locale}
+            section="technology-stack"
+            onActivate={() => setMobileOpen(false)}
           >
             {t.nav.technology}
-          </Link>
-          <Link
-            href={`/${locale}/#enterprise`}
-            onClick={() => setMobileOpen(false)}
-          >
-            {t.nav.enterprise}
-          </Link>
+          </SectionLink>
           <a href="https://north.blackpolar.org">{t.login}</a>
           <Link
             className="bp-mobile-locale"
@@ -330,7 +343,15 @@ export function SiteFooter({ locale }: { locale: SiteLocale }) {
         <div>
           <Link className="bp-wordmark" href={`/${locale}`}>
             <Image
-              src="/assets/main/image/blackpolar1.png"
+              className="bp-brand-logo bp-brand-logo-light"
+              src="/assets/brand/logo-black.png"
+              alt=""
+              width={38}
+              height={38}
+            />
+            <Image
+              className="bp-brand-logo bp-brand-logo-dark"
+              src="/assets/brand/logo-white.png"
               alt=""
               width={38}
               height={38}
@@ -347,9 +368,15 @@ export function SiteFooter({ locale }: { locale: SiteLocale }) {
         </div>
         <div>
           <strong>{t.footer.solutions}</strong>
-          <Link href={`/${locale}/#solutions`}>{t.solutionMenu[0][0]}</Link>
-          <Link href={`/${locale}/#solutions`}>{t.solutionMenu[1][0]}</Link>
-          <Link href={`/${locale}/#solutions`}>{t.solutionMenu[2][0]}</Link>
+          <SectionLink locale={locale} section="solutions">
+            {t.solutionMenu[0][0]}
+          </SectionLink>
+          <SectionLink locale={locale} section="solutions">
+            {t.solutionMenu[1][0]}
+          </SectionLink>
+          <SectionLink locale={locale} section="solutions">
+            {t.solutionMenu[2][0]}
+          </SectionLink>
         </div>
         <div>
           <strong>{t.footer.legal}</strong>

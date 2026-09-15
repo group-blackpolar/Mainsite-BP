@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "./site-shell";
 import type { SiteLocale } from "./marketing-home";
+import { SectionLink } from "./section-link";
 import { SystemVisual } from "./system-visual";
 
 export const productIds = ["north", "arcticfox", "ermine"] as const;
@@ -141,9 +142,13 @@ export function ProductPage({
       <main id="main-content">
         <section className="bp-product-hero bp-container">
           <div data-reveal>
-            <Link className="bp-overline" href={`/${locale}/#products`}>
+            <SectionLink
+              className="bp-overline"
+              locale={locale}
+              section="products"
+            >
               Black Polar / {p.name}
-            </Link>
+            </SectionLink>
             <span className="bp-preview-badge">
               {es
                 ? "En desarrollo · Vista conceptual"

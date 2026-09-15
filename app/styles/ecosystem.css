@@ -131,7 +131,10 @@
   justify-content: space-between;
   padding: 24px;
   background: var(--bp-white);
-  transition: background 0.35s, color 0.35s, transform 0.35s;
+  transition:
+    background 0.35s,
+    color 0.35s,
+    transform 0.35s;
 }
 .bp-stack-grid article:hover {
   z-index: 1;
@@ -148,7 +151,9 @@
   border-radius: 16px;
   background: color-mix(in srgb, var(--stack-color) 10%, var(--bp-white));
   color: var(--stack-color);
-  transition: transform 0.35s, background 0.35s;
+  transition:
+    transform 0.35s,
+    background 0.35s;
 }
 .bp-stack-grid article:hover .bp-stack-icon {
   background: color-mix(in srgb, var(--stack-color) 16%, var(--bp-white));
@@ -381,4 +386,225 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Brand assets stay transparent and swap naturally with the active surface. */
+.bp-brand-mark {
+  position: relative;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+}
+.bp-brand-logo-dark {
+  display: none;
+}
+.bp-brand-mark .bp-brand-logo {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+}
+.bp-header.is-condensed .bp-brand-mark {
+  width: 54px;
+  height: 54px;
+}
+.bp-header.is-condensed .bp-brand-mark .bp-brand-logo {
+  width: 46px;
+  height: 46px;
+}
+.bp-brand:hover .bp-brand-mark .bp-brand-logo {
+  transform: translate(-50%, -50%) rotate(-7deg) scale(1.04);
+}
+.bp-wordmark {
+  position: relative;
+}
+.bp-wordmark .bp-brand-logo-dark {
+  display: none;
+}
+
+.bp-service-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.bp-service-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border: 1px solid var(--bp-line);
+  border-radius: 13px;
+  background: var(--bp-soft);
+  color: var(--bp-ink);
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+.bp-service-icon svg {
+  width: 25px;
+  height: 25px;
+}
+.bp-service-card:hover .bp-service-icon {
+  transform: translateY(-3px) rotate(-2deg);
+  background: var(--bp-ink);
+  color: var(--bp-white);
+}
+
+.bp-brand-banner {
+  position: relative;
+  height: clamp(270px, 33vw, 460px);
+  overflow: hidden;
+  border-top: 4px solid var(--bp-ink);
+  background: #fff;
+}
+.bp-brand-banner img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Dark surfaces are defined after every component stylesheet so no light
+   component can accidentally override the active theme. */
+:root[data-theme="dark"] .bp-brand-logo-light {
+  display: none;
+}
+:root[data-theme="dark"] .bp-brand-logo-dark,
+:root[data-theme="dark"] .bp-wordmark .bp-brand-logo-dark {
+  display: block;
+}
+:root[data-theme="dark"] .bp-hero,
+:root[data-theme="dark"] .bp-legal-page,
+:root[data-theme="dark"] .bp-product-detail,
+:root[data-theme="dark"] .bp-products-section {
+  background: #090d12;
+  color: var(--bp-ink);
+}
+:root[data-theme="dark"] .bp-hero-grid {
+  background-image:
+    linear-gradient(rgba(220, 228, 238, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 228, 238, 0.045) 1px, transparent 1px);
+}
+:root[data-theme="dark"] .bp-orbit {
+  border-color: #252e39;
+}
+:root[data-theme="dark"] .bp-platform-window,
+:root[data-theme="dark"] .bp-window-bar,
+:root[data-theme="dark"] .bp-window-body aside,
+:root[data-theme="dark"] .bp-dashboard-head button {
+  border-color: #2a3441;
+  background: #111821;
+}
+:root[data-theme="dark"] .bp-window-bar > span,
+:root[data-theme="dark"] .bp-window-body aside i {
+  background: #394553;
+}
+:root[data-theme="dark"] .bp-chart-line {
+  stroke: #dce5ef;
+}
+:root[data-theme="dark"] .bp-floating-card,
+:root[data-theme="dark"] .bp-product-card,
+:root[data-theme="dark"] .bp-product-featured,
+:root[data-theme="dark"] .bp-product-north,
+:root[data-theme="dark"] .bp-service-card,
+:root[data-theme="dark"] .bp-category-card,
+:root[data-theme="dark"] .bp-product-stage {
+  border-color: #293440;
+  background: #0f151d;
+  color: var(--bp-ink);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
+}
+:root[data-theme="dark"] .bp-system-dashboard {
+  border-color: #293440;
+  background: #141c26;
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.22);
+}
+:root[data-theme="dark"] .bp-system-toolbar {
+  border-color: #2c3744;
+  color: #9aa7b6;
+}
+:root[data-theme="dark"] .bp-system-kpis > div,
+:root[data-theme="dark"] .bp-signal-row > div,
+:root[data-theme="dark"] .bp-system-list span,
+:root[data-theme="dark"] .bp-security-events span,
+:root[data-theme="dark"] .bp-erp-pipeline span {
+  border-color: #293440;
+  background: #0b1118;
+  color: #c8d1dc;
+}
+:root[data-theme="dark"] .bp-system-kpis small,
+:root[data-theme="dark"] .bp-signal-row small,
+:root[data-theme="dark"] .bp-system-list b,
+:root[data-theme="dark"] .bp-erp-pipeline b {
+  color: #8e9aaa;
+}
+:root[data-theme="dark"] .bp-signal-chart,
+:root[data-theme="dark"] .bp-workflow-lane {
+  background: linear-gradient(145deg, #141e2a, #0b1118);
+}
+:root[data-theme="dark"] .bp-workflow-lane > span {
+  color: #d2dbe6;
+}
+:root[data-theme="dark"] .bp-workflow-lane > span small,
+:root[data-theme="dark"] .bp-workflow-lane > b {
+  color: #8e9baa;
+}
+:root[data-theme="dark"] .bp-service-icon {
+  background: #151d26;
+}
+:root[data-theme="dark"] .bp-service-card:hover .bp-service-icon {
+  background: #f3f6f8;
+  color: #0b1016;
+}
+:root[data-theme="dark"] .bp-stack-grid article {
+  background: #0d141c;
+}
+:root[data-theme="dark"] .bp-stack-grid article:hover {
+  background: color-mix(in srgb, var(--stack-color) 13%, #0d141c);
+}
+:root[data-theme="dark"] .bp-network-section {
+  background: #0c1219;
+  color: var(--bp-ink);
+}
+:root[data-theme="dark"] .bp-network-copy > span,
+:root[data-theme="dark"] .bp-network-copy > p {
+  color: var(--bp-copy);
+}
+:root[data-theme="dark"] .bp-network-list span {
+  border-color: #2a3542;
+  background: #121a23;
+  color: #c1cad5;
+}
+:root[data-theme="dark"] .bp-world-map-label {
+  fill: #f3f6f8;
+  stroke: #0c1219;
+}
+:root[data-theme="dark"] .bp-legal-gridlines {
+  opacity: 0.45;
+  filter: invert(1);
+}
+:root[data-theme="dark"] .bp-legal-sidebar > span,
+:root[data-theme="dark"] .bp-legal-sidebar nav a,
+:root[data-theme="dark"] .bp-legal-kicker,
+:root[data-theme="dark"] .bp-legal-intro,
+:root[data-theme="dark"] .bp-legal-document section p {
+  color: var(--bp-copy);
+}
+:root[data-theme="dark"] .bp-legal-sidebar nav a:hover,
+:root[data-theme="dark"] .bp-legal-sidebar nav a.is-current {
+  color: var(--bp-ink);
+}
+:root[data-theme="dark"] .bp-legal-kicker span {
+  background: #1b2741;
+  color: #aabaff;
+}
+:root[data-theme="dark"] .bp-legal-document section {
+  border-color: var(--bp-line);
+}
+:root[data-theme="dark"] .bp-brand-banner {
+  background: #05080c;
+}
+:root[data-theme="dark"] .bp-brand-banner img {
+  filter: invert(1);
 }

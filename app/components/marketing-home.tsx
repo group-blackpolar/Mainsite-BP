@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { NetworkMap } from "./network-map";
+import { SectionLink } from "./section-link";
 import { SiteFooter, SiteHeader } from "./site-shell";
 import { Solutions } from "./solutions";
 import { SystemVisual } from "./system-visual";
@@ -95,13 +97,21 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
               <h1>{t.title}</h1>
               <p>{t.intro}</p>
               <div className="bp-actions-row">
-                <a className="bp-button bp-button-dark" href="#products">
+                <SectionLink
+                  className="bp-button bp-button-dark"
+                  locale={locale}
+                  section="products"
+                >
                   {t.primary}
                   <Arrow />
-                </a>
-                <a className="bp-button bp-button-light" href="#solutions">
+                </SectionLink>
+                <SectionLink
+                  className="bp-button bp-button-light"
+                  locale={locale}
+                  section="solutions"
+                >
                   {t.secondary}
-                </a>
+                </SectionLink>
               </div>
             </div>
             <div
@@ -121,7 +131,9 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
                   <span />
                   <span />
                   <span />
-                  <small>North / {isSpanish ? "Operaciones" : "Operations"}</small>
+                  <small>
+                    North / {isSpanish ? "Operaciones" : "Operations"}
+                  </small>
                 </div>
                 <div className="bp-window-body">
                   <aside>
@@ -134,19 +146,29 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
                   <div className="bp-dashboard">
                     <div className="bp-dashboard-head">
                       <div>
-                        <small>{isSpanish ? "Espacio de trabajo" : "Workspace"}</small>
-                        <strong>{isSpanish ? "Resumen de operaciones" : "Operations overview"}</strong>
+                        <small>
+                          {isSpanish ? "Espacio de trabajo" : "Workspace"}
+                        </small>
+                        <strong>
+                          {isSpanish
+                            ? "Resumen de operaciones"
+                            : "Operations overview"}
+                        </strong>
                       </div>
                       <span>{isSpanish ? "Este mes" : "This month"}</span>
                     </div>
                     <div className="bp-metric-row">
                       <div>
-                        <small>{isSpanish ? "Sistemas activos" : "Active systems"}</small>
+                        <small>
+                          {isSpanish ? "Sistemas activos" : "Active systems"}
+                        </small>
                         <strong>12</strong>
                         <em>+2.4%</em>
                       </div>
                       <div>
-                        <small>{isSpanish ? "Disponibilidad" : "Availability"}</small>
+                        <small>
+                          {isSpanish ? "Disponibilidad" : "Availability"}
+                        </small>
                         <strong>99.98%</strong>
                         <em>{isSpanish ? "Estable" : "Stable"}</em>
                       </div>
@@ -154,7 +176,9 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
                     <div className="bp-chart-card">
                       <div className="bp-chart-label">
                         <span>{isSpanish ? "Actividad" : "Activity"}</span>
-                        <small>{isSpanish ? "Últimos 30 días" : "Last 30 days"}</small>
+                        <small>
+                          {isSpanish ? "Últimos 30 días" : "Last 30 days"}
+                        </small>
                       </div>
                       <svg
                         viewBox="0 0 420 112"
@@ -202,12 +226,18 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
                 <span className="bp-check">✓</span>
                 <div>
                   <small>North</small>
-                  <strong>{isSpanish ? "Vista conceptual" : "Concept preview"}</strong>
+                  <strong>
+                    {isSpanish ? "Vista conceptual" : "Concept preview"}
+                  </strong>
                 </div>
               </div>
               <div className="bp-floating-card bp-access-card">
                 <small>{isSpanish ? "Acceso seguro" : "Secure access"}</small>
-                <strong>{isSpanish ? "Identidad · Políticas · Auditoría" : "Identity · Policy · Audit"}</strong>
+                <strong>
+                  {isSpanish
+                    ? "Identidad · Políticas · Auditoría"
+                    : "Identity · Policy · Audit"}
+                </strong>
               </div>
             </div>
           </div>
@@ -277,10 +307,14 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
             <div className="bp-platform-copy" data-reveal>
               <h2>{t.platformTitle}</h2>
               <p>{t.platformBody}</p>
-              <a className="bp-text-link" href="#technology-stack">
+              <SectionLink
+                className="bp-text-link"
+                locale={locale}
+                section="technology-stack"
+              >
                 {isSpanish ? "Ver nuestras tecnologías" : "See our technology"}
                 <Arrow />
-              </a>
+              </SectionLink>
             </div>
             <div
               className="bp-live-dashboard"
@@ -352,6 +386,15 @@ export function MarketingHome({ locale }: { locale: SiteLocale }) {
         </section>
 
         <TechnologyStack locale={locale} />
+        <section className="bp-brand-banner" aria-label="Group Black Polar">
+          <Image
+            src="/assets/brand/group-black-polar-banner.png"
+            alt="Group Black Polar"
+            width={1280}
+            height={720}
+            sizes="100vw"
+          />
+        </section>
         <NetworkMap locale={locale} />
       </main>
       <SiteFooter locale={locale} />
