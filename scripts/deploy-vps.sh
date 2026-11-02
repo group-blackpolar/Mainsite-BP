@@ -20,8 +20,9 @@ done
 kill "$candidate" 2>/dev/null || true
 wait "$candidate" 2>/dev/null || true
 standalone="$release/.next/standalone"
-mkdir -p "$standalone/.next/cache"
-writable=("$standalone/.next/server/app" "$standalone/.next/cache")
+mkdir -p "$standalone/.next/cache" "$standalone/.next/server/route-cache"
+# Next 15.5.28 caches dynamic pages under server/route-cache as well as server/app.
+writable=("$standalone/.next/server/app" "$standalone/.next/server/route-cache" "$standalone/.next/cache")
 chgrp -R "$run_user" "${writable[@]}"
 chmod -R g+rwX "${writable[@]}"
 find "${writable[@]}" -type d -exec chmod g+s {} +
